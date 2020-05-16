@@ -5,18 +5,26 @@ import java.awt.*;
 
 import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
 
-public class Menu extends JPanel {
+public class Menu extends Panel {
 
     public Menu(){
-
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         Button save = new ImageButton("Save", "/save.png");
 
         save.addActionListener(actionEvent -> {
 
-            System.out.println("Save");
+            Container topLevelAncestor = getTopLevelAncestor();
 
+            if (topLevelAncestor instanceof JFrame){
+
+                Container parent = ((JFrame) topLevelAncestor).getContentPane();
+
+                if (parent instanceof BlueprintPanel){
+
+                    Exporter.export(((BlueprintPanel) parent).getLevels());
+
+                }
+            }
         });
         add(save);
 
