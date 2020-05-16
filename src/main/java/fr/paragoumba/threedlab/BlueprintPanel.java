@@ -194,6 +194,23 @@ public class BlueprintPanel extends JPanel {
         g.setColor(bgColor);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        g.setColor(brightShadow);
+
+        int width = getWidth();
+        int height = getHeight();
+
+        for (int i = offset.y % SPACINGS[LINE_SPACING]; i <= height; i += SPACINGS[LINE_SPACING]){
+
+            g.drawLine(0, i, width, i);
+
+        }
+
+        for (int i = offset.x % SPACINGS[LINE_SPACING]; i <= width; i += SPACINGS[LINE_SPACING]){
+
+            g.drawLine(i, 0, i, height);
+
+        }
+
         g.setColor(Color.WHITE);
 
         Labyrinth labyrinth = currentLevel.getLabyrinth();
