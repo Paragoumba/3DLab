@@ -11,8 +11,9 @@ public class BlueprintPanel extends JPanel {
     public static final int PIXEL_SIZE = 10;
     private static final int LINE_SPACING = 50;
 
-    public static final Color brightShadow = new Color(255, 255, 255, 84);
-    public static final Color darkShadow = new Color(0, 0, 0, 114);
+    public static final Color bgColor = new Color(0, 109, 223);
+    public static final Color brightShadow = new Color(255, 255, 255, 20);
+    public static final Color darkShadow = new Color(0, 0, 0, 50);
 
     public BlueprintPanel(List<Level> levels){
 
