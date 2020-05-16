@@ -74,6 +74,28 @@ public class BlueprintPanel extends JPanel {
                 }
             }
         });
+
+        addMouseWheelListener(e -> {
+
+            if (e.getWheelRotation() < 0) {
+
+                if (LINE_SPACING < SPACINGS.length - 1){
+
+                    LINE_SPACING++;
+                    repaint();
+
+                }
+
+            } else {
+
+                if (LINE_SPACING > 0){
+
+                    LINE_SPACING--;
+                    repaint();
+
+                }
+            }
+        });
     }
 
     private final List<Level> levels;
