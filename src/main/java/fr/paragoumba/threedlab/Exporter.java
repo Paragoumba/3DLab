@@ -9,7 +9,7 @@ public class Exporter {
 
     private Exporter(){}
 
-    public static void exportLab(Labyrinth labyrinth){
+    public static void export(List<Level> levels){
 
         File exportDir = new File("export");
 
