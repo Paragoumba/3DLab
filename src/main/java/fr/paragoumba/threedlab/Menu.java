@@ -35,6 +35,11 @@ public class Menu extends JPanel {
         int width = getWidth();
         int height = getHeight();
 
+        g.setColor(BlueprintPanel.bgColor);
+        g.fillRect(PIXEL_SIZE, 0, width - 2 * PIXEL_SIZE, height);
+        g.fillRect(0, PIXEL_SIZE, PIXEL_SIZE, height - 2 * PIXEL_SIZE);
+        g.fillRect(width - PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE, height - 2 * PIXEL_SIZE);
+
         g.setColor(BlueprintPanel.brightShadow);
         g.fillRect(PIXEL_SIZE, 0, width - 2 * PIXEL_SIZE, PIXEL_SIZE);
         g.fillRect(PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
