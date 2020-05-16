@@ -19,9 +19,8 @@ public class Separator extends JComponent {
 
         super.paintComponent(g);
 
-        g.setColor(new Color(255, 255, 255, 127));
+        g.setColor(BlueprintPanel.brightShadow);
         g.fillRect(2 * PIXEL_SIZE, PIXEL_SIZE, getWidth() - 4 * PIXEL_SIZE, PIXEL_SIZE);
-        g.fillRect(0, 0, getWidth(), getHeight());
 
     }
 }
