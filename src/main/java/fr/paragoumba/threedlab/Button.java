@@ -11,6 +11,8 @@ public class Button extends JButton {
 
         super(text);
 
+        setToolTipText(text);
+
         setBorder(null);
 
         Dimension size = new Dimension(8 * PIXEL_SIZE, 8 * PIXEL_SIZE);
@@ -22,9 +24,6 @@ public class Button extends JButton {
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(Graphics g){}
 
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-    }
 }

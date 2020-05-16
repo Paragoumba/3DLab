@@ -15,7 +15,10 @@ public class ImageButton extends Button {
 
         try {
 
-            image = ImageIO.read(ImageButton.class.getResourceAsStream(imagePath));
+            image = ImageIO.read(ImageButton.class.getResourceAsStream(imagePath))
+                    .getScaledInstance(80, 80, Image.SCALE_DEFAULT);
+
+            this.imageHeight = this.imageWidth = 80;
 
         } catch (IOException e){
 
@@ -23,19 +26,25 @@ public class ImageButton extends Button {
 
         }
 
-        this.setPreferredSize(new Dimension(image.getWidth() + 4 * PIXEL_SIZE, image.getHeight() + 4 * PIXEL_SIZE));
+        Dimension size = new Dimension(imageWidth + 4 * PIXEL_SIZE, imageHeight + 4 * PIXEL_SIZE);
+
+        setMinimumSize(size);
+        setMaximumSize(size);
+        setPreferredSize(size);
 
     }
 
-    private BufferedImage image;
+    private Image image;
+    private int imageWidth;
+    private int imageHeight;
 
     @Override
     protected void paintComponent(Graphics g){
 
         super.paintComponent(g);
 
-        g.drawImage(image, this.getWidth() / 2 - image.getWidth() / 2,
-                this.getHeight() / 2 - image.getHeight() / 2, null);
+        g.drawImage(image, getWidth() / 2 - imageWidth / 2,
+                getHeight() / 2 - imageHeight / 2, null);
 
     }
 }
