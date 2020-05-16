@@ -26,14 +26,22 @@ public class Menu extends Panel {
                 }
             }
         });
+        add(Box.createVerticalGlue());
         add(save);
 
+        add(Box.createVerticalGlue());
         add(new Separator());
-        add(new Button("Texture 1"));
-        add(new Button("Texture 2"));
-        add(new Button("Texture 3"));
-        add(new Button("Texture 4"));
-        add(new Button("Texture 5"));
+        add(Box.createVerticalGlue());
+        add(new ColorButton("White", Color.WHITE));
+        add(Box.createVerticalGlue());
+        add(new ImageButton("Brick", "/brick.png"));
+        add(Box.createVerticalGlue());
+        add(new ImageButton("Stone", "/stone.png"));
+        add(Box.createVerticalGlue());
+        add(new ColorButton("Black", Color.BLACK));
+        add(Box.createVerticalGlue());
+        add(new ColorButton("Green", Color.GREEN));
+        add(Box.createVerticalGlue());
 
     }
 
