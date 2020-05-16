@@ -38,6 +38,24 @@ public class BlueprintPanel extends JPanel {
 
                 }
             }
+
+            @Override
+            public void mouseDragged(MouseEvent e){
+
+                super.mouseDragged(e);
+
+                if (dragStart != null){
+
+                    Point dragEnd = e.getPoint();
+
+                    offset.x += dragEnd.x - dragStart.x;
+                    offset.y += dragEnd.y - dragStart.y;
+
+                    dragStart = dragEnd;
+                    repaint();
+
+                }
+            }
         });
 
         addMouseListener(new MouseAdapter() {
@@ -100,6 +118,8 @@ public class BlueprintPanel extends JPanel {
 
     private final List<Level> levels;
     private Level currentLevel;
+    private Point offset;
+    private Point dragStart = null;
 
     private void fillSquare(Graphics g, int x, int y){
 
@@ -132,6 +152,12 @@ public class BlueprintPanel extends JPanel {
         for (int i = 0; i <= labWidth; i += SPACINGS[LINE_SPACING]){
 
             g.drawLine(offset.x + i, offset.y, offset.x + i, offset.y + labHeight);
+
+        }
+
+        for (int i = 0; i <= labHeight; i += SPACINGS[LINE_SPACING]){
+
+            g.drawLine(offset.x, offset.y + i, offset.x + labWidth, offset.y + i);
 
         }
 
