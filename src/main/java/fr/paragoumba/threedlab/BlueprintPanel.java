@@ -79,12 +79,7 @@ public class BlueprintPanel extends JPanel {
 
         super.paintComponent(g);
 
-        Labyrinth labyrinth = currentLevel.getLabyrinth();
-
-        int width = labyrinth.getWidth() * LINE_SPACING;
-        int height = labyrinth.getHeight() * LINE_SPACING;
-
-        g.setColor(new Color(0, 109, 223));
+        g.setColor(bgColor);
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(Color.WHITE);
