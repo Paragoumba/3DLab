@@ -16,7 +16,7 @@ public class Labyrinth {
 
     public void toggleSquare(int x, int y){
 
-        if (x < width && y < height){
+        if (x >= 0 && x < width && y >= 0 && y < height){
 
             grid[x][y] = !grid[x][y];
 
