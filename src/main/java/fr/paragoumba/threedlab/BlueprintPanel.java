@@ -156,6 +156,34 @@ public class BlueprintPanel extends JPanel {
 
     }
 
+    public List<Level> getLevels(){
+
+        return levels;
+
+    }
+
+    public void setCurrentLevel(int levelIndex){
+
+        if (levelIndex >= levels.size()){
+
+            return;
+
+        }
+
+        this.currentLevel = levels.get(levelIndex);
+
+        Labyrinth labyrinth = currentLevel.getLabyrinth();
+
+        int labWidth = labyrinth.getWidth() * SPACINGS[LINE_SPACING];
+        int labHeight = labyrinth.getHeight() * SPACINGS[LINE_SPACING];
+
+        int width = getWidth();
+        int height = getHeight();
+
+        offset = new Point((width - labWidth) / 2, (height - labHeight) / 2);
+
+    }
+
     @Override
     protected void paintComponent(Graphics g){
 
