@@ -9,7 +9,8 @@ import java.awt.event.MouseEvent;
 public class BlueprintPanel extends JPanel {
 
     public static final int PIXEL_SIZE = 10;
-    private static final int LINE_SPACING = 50;
+    private static final int[] SPACINGS = new int[]{10, 15, 20, 30, 50, 75, 100};
+    private static int LINE_SPACING = 2;
 
     public static final Color bgColor = new Color(0, 109, 223);
     public static final Color brightShadow = new Color(255, 255, 255, 20);
@@ -48,12 +49,28 @@ public class BlueprintPanel extends JPanel {
 
                 if (e.getButton() == MouseEvent.BUTTON1){
 
-                    Point mousePosition = getSquareMousePosition(e.getPoint());
+                    Point mousePosition = e.getPoint();
+                    Labyrinth labyrinth = currentLevel.getLabyrinth();
 
-                    currentLevel.getLabyrinth().toggleSquare(mousePosition.x, mousePosition.y);
+                    int labWidth = labyrinth.getWidth() * SPACINGS[LINE_SPACING];
+                    int labHeight = labyrinth.getHeight() * SPACINGS[LINE_SPACING];
 
-                    repaint();
+                    if (mousePosition.x >= offset.x && mousePosition.x < offset.x + labWidth &&
+                            mousePosition.y >= offset.y && mousePosition.y < offset.y + labHeight){
 
+                        dragStart = null;
+
+                        Point mouseSquarePosition = getSquareMousePosition(mousePosition);
+
+                        currentLevel.getLabyrinth().toggleSquare(mouseSquarePosition.x, mouseSquarePosition.y);
+
+                        repaint();
+
+                    } else {
+
+                        dragStart = mousePosition;
+
+                    }
                 }
             }
         });
@@ -64,13 +81,14 @@ public class BlueprintPanel extends JPanel {
 
     private void fillSquare(Graphics g, int x, int y){
 
-        g.fillRect(x, y, LINE_SPACING, LINE_SPACING);
+        g.fillRect(x, y, SPACINGS[LINE_SPACING], SPACINGS[LINE_SPACING]);
 
     }
 
     private Point getSquareMousePosition(Point mousePosition){
 
-        return new Point(mousePosition.x / LINE_SPACING, mousePosition.y / LINE_SPACING);
+        return new Point((int) Math.floor((float)(mousePosition.x - offset.x) / SPACINGS[LINE_SPACING]),
+                (int) Math.floor((float)(mousePosition.y - offset.y) / SPACINGS[LINE_SPACING]));
 
     }
 
@@ -84,10 +102,14 @@ public class BlueprintPanel extends JPanel {
 
         g.setColor(Color.WHITE);
 
-        for (int i = LINE_SPACING - 1; i < Math.max(width, height); i += LINE_SPACING){
+        Labyrinth labyrinth = currentLevel.getLabyrinth();
 
-            g.drawLine(i, 0, i, height - 1);
-            g.drawLine(0, i, width - 1, i);
+        int labWidth = labyrinth.getWidth() * SPACINGS[LINE_SPACING];
+        int labHeight = labyrinth.getHeight() * SPACINGS[LINE_SPACING];
+
+        for (int i = 0; i <= labWidth; i += SPACINGS[LINE_SPACING]){
+
+            g.drawLine(offset.x + i, offset.y, offset.x + i, offset.y + labHeight);
 
         }
 
@@ -108,7 +130,7 @@ public class BlueprintPanel extends JPanel {
 
                     if (mousePosition == null || i != mousePosition.x || j != mousePosition.y){
 
-                        fillSquare(g, i * LINE_SPACING, j * LINE_SPACING);
+                        fillSquare(g, offset.x + i * SPACINGS[LINE_SPACING], offset.y + j * SPACINGS[LINE_SPACING]);
 
                     }
 
@@ -116,7 +138,7 @@ public class BlueprintPanel extends JPanel {
 
                     if (mousePosition != null && i == mousePosition.x && j == mousePosition.y){
 
-                        fillSquare(g, i * LINE_SPACING, j * LINE_SPACING);
+                        fillSquare(g, offset.x + i * SPACINGS[LINE_SPACING], offset.y + j * SPACINGS[LINE_SPACING]);
 
                     }
                 }
