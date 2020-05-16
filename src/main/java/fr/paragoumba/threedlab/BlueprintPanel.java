@@ -1,29 +1,51 @@
 package fr.paragoumba.threedlab;
 
-import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.List;
 
 public class BlueprintPanel extends JPanel {
 
     public static final int PIXEL_SIZE = 10;
     private static final int[] SPACINGS = new int[]{10, 15, 20, 30, 50, 75, 100};
     private static int LINE_SPACING = 2;
+    private static BufferedImage arrow;
 
     public static final Color bgColor = new Color(0, 109, 223);
     public static final Color brightShadow = new Color(255, 255, 255, 20);
     public static final Color darkShadow = new Color(0, 0, 0, 50);
+    public static Font font;
 
     public BlueprintPanel(List<Level> levels){
 
         super(new BorderLayout());
 
-        add(new Menu(), BorderLayout.EAST);
+        try {
+
+            arrow = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/arrow.png"));
+            font = Font.createFont(Font.TRUETYPE_FONT, BlueprintPanel.class.getResourceAsStream("/fonts/prstartk.ttf"));
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
+
+        } catch (IOException | FontFormatException e){
+
+            e.printStackTrace();
+
+        }
+
+        Panel menuPanel = new Panel();
+
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE));
+        menuPanel.add(new Menu());
+
+        add(menuPanel, BorderLayout.AFTER_LINE_ENDS);
 
         this.levels = levels;
-        currentLevel = levels.get(0);
 
         addMouseMotionListener(new MouseAdapter(){
 
@@ -58,7 +80,7 @@ public class BlueprintPanel extends JPanel {
             }
         });
 
-        addMouseListener(new MouseAdapter() {
+        addMouseListener(new MouseAdapter(){
 
             @Override
             public void mousePressed(MouseEvent e){
@@ -139,6 +161,8 @@ public class BlueprintPanel extends JPanel {
 
         super.paintComponent(g);
 
+        g.setFont(new Font(font.getName(), Font.PLAIN, 15));
+
         g.setColor(bgColor);
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -191,6 +215,36 @@ public class BlueprintPanel extends JPanel {
                     }
                 }
             }
+        }
+
+        if (arrow != null && offset.x > width || offset.x < -labWidth || offset.y > height || offset.y < -labHeight){
+
+            int labCenterX = offset.x + labWidth / 2;
+            int labCenterY = offset.y + labHeight / 2;
+
+            int halfWidth = width / 2;
+            int halfHeight= height / 2;
+
+            Point arrowVector = new Point(0, -1);
+            Point labVector = new Point(labCenterX - halfWidth, labCenterY - halfHeight);
+
+            AffineTransform at = new AffineTransform();
+
+            at.translate(halfWidth, halfHeight);
+            at.scale(0.5, 0.5);
+
+            double angle = (labCenterX < halfWidth ? -1 : 1) * Math.acos((labVector.x * arrowVector.x + labVector.y * arrowVector.y) / Math.sqrt(Math.pow(labVector.x, 2) + Math.pow(labVector.y, 2)) * Math.sqrt(Math.pow(arrowVector.x, 2) + Math.pow(arrowVector.y, 2)));
+
+            at.rotate(angle);
+            at.translate((float) -arrow.getWidth() / 2, (float) -arrow.getHeight() / 2);
+
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.drawImage(arrow, at, null);
+            g.drawString(String.valueOf(angle), 10, height - PIXEL_SIZE);
+
         }
     }
 }
