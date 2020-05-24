@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "3dlab-schema.json",
+  "type": "object",
+  "properties": {
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lab": {
+            "type": "object",
+            "properties": {
+              "walls": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x", "y"
+                  ]
+                }
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              }
+            },
+            "required": ["walls", "width", "height"]
+          }
+        },
+        "required": [
+          "lab"
+        ]
+      }
+    }
+  },
+  "required": [
+    "levels"
+  ]
+}
