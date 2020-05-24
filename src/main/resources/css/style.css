@@ -1,5 +1,11 @@
+@font-face {
+    font-family: "Press Start K";
+    src: url("../fonts/prstartk.ttf");
+}
+
 body {
     margin: 0;
+    font-family: "Press Start K", sans-serif;
 }
 
 canvas {
