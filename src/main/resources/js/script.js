@@ -1,4 +1,4 @@
-const rotationElt = document.getElementById("rotation");
+const textElt = document.getElementById("text");
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -67,7 +67,7 @@ function animate(){
 
     }
 
-    rotationElt.textContent = "x:" + 180 / Math.PI * camera.rotation.x + " y:" + 180 / Math.PI * camera.rotation.y + " z:" + 180 / Math.PI * camera.rotation.z + " FPS:" + lastFPS;
+    textElt.textContent = "x:" + 180 / Math.PI * camera.rotation.x + " y:" + 180 / Math.PI * camera.rotation.y + " z:" + 180 / Math.PI * camera.rotation.z + " FPS:" + lastFPS;
     renderer.render(scene, camera);
     ++fps;
 
