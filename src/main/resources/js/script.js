@@ -76,14 +76,14 @@ function animate(){
 let levels;
 
 importData();
-animate();
 
 function importData(){
 
     fetch("data.json")
         .then(data => data.json())
         .then(data => importLab(data.levels))
-        .catch(console.log);
+        .then(animate)
+        .catch(() => textElt.textContent = "Could not load data.");
 
 }
 
