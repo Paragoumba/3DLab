@@ -42,6 +42,10 @@ public class Menu extends Panel {
         add(Box.createVerticalGlue());
         add(new ColorButton("Green", Color.GREEN));
         add(Box.createVerticalGlue());
+        add(new ColorButton("Blue", Color.BLUE));
+        add(Box.createVerticalGlue());
+        add(new ColorButton("Red", Color.RED));
+        add(Box.createVerticalGlue());
 
     }
 
