@@ -9,7 +9,7 @@ public class Menu extends Panel {
 
     public Menu(){
 
-        Button save = new ImageButton("Save", "/save.png");
+        Button save = new ImageButton("Save", "/imgs/save.png");
 
         save.addActionListener(actionEvent -> {
 
@@ -26,17 +26,17 @@ public class Menu extends Panel {
                 }
             }
         });
+
         add(Box.createVerticalGlue());
         add(save);
-
         add(Box.createVerticalGlue());
         add(new Separator());
         add(Box.createVerticalGlue());
         add(new ColorButton("White", Color.WHITE));
         add(Box.createVerticalGlue());
-        add(new ImageButton("Brick", "/brick.png"));
+        add(new ImageButton("Brick", "/imgs/brick.png"));
         add(Box.createVerticalGlue());
-        add(new ImageButton("Stone", "/stone.png"));
+        add(new ImageButton("Stone", "/imgs/stone.png"));
         add(Box.createVerticalGlue());
         add(new ColorButton("Black", Color.BLACK));
         add(Box.createVerticalGlue());

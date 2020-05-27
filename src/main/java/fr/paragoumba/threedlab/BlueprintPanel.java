@@ -28,7 +28,7 @@ public class BlueprintPanel extends JPanel {
 
         try {
 
-            arrow = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/arrow.png"));
+            arrow = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/imgs/arrow.png"));
             font = Font.createFont(Font.TRUETYPE_FONT, BlueprintPanel.class.getResourceAsStream("/fonts/prstartk.ttf"));
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
 

@@ -25,7 +25,7 @@ public class ThreeDLab {
         window.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         window.pack();
         mainPanel.setCurrentLevel(0);
-        window.setIconImage(ImageIO.read(ThreeDLab.class.getResourceAsStream("/brick.png")));
+        window.setIconImage(ImageIO.read(ThreeDLab.class.getResourceAsStream("/imgs/3dlab-icon.png")));
         window.setVisible(true);
 
     }
