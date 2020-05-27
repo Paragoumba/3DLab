@@ -21,6 +21,9 @@
                     },
                     "y": {
                       "type": "number"
+                    },
+                    "material": {
+                      "type": "string"
                     }
                   },
                   "required": [
