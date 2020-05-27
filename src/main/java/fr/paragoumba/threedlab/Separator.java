@@ -8,9 +8,13 @@ import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
 public class Separator extends JComponent {
 
     @Override
-    public int getHeight(){
+    public Dimension getPreferredSize(){
 
-        return PIXEL_SIZE * 3;
+        Dimension minSize = super.getMinimumSize();
+
+        minSize.height = PIXEL_SIZE * 3;
+
+        return minSize;
 
     }
 
