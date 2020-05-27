@@ -14,7 +14,7 @@ public class BlueprintPanel extends JPanel {
 
     public static final int PIXEL_SIZE = 10;
     private static final int[] SPACINGS = new int[]{10, 15, 20, 30, 50, 75, 100};
-    private static int LINE_SPACING = 2;
+    private static int LINE_SPACING = 4;
     private static BufferedImage arrow;
 
     public static final Color bgColor = new Color(0, 109, 223);
@@ -189,10 +189,19 @@ public class BlueprintPanel extends JPanel {
 
         super.paintComponent(g);
 
-        g.setFont(new Font(font.getName(), Font.PLAIN, 15));
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 
         g.setColor(bgColor);
         g.fillRect(0, 0, getWidth(), getHeight());
+
+        g.setFont(new Font(font.getName(), Font.PLAIN, 25));
+
+        g.setColor(Color.WHITE);
+        g.drawString("Level " + currentLevel.getLevel() + " - " + currentLevel.getName(), 2 * PIXEL_SIZE, 4 * PIXEL_SIZE);
 
         g.setColor(brightShadow);
 
@@ -283,12 +292,13 @@ public class BlueprintPanel extends JPanel {
             at.rotate(angle);
             at.translate((float) -arrow.getWidth() / 2, (float) -arrow.getHeight() / 2);
 
-            Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(
                     RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.drawImage(arrow, at, null);
-            g.drawString(String.valueOf(angle), 10, height - PIXEL_SIZE);
+            g2d.setRenderingHint(
+                    RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.drawImage(arrow, at, this);
 
         }
     }
