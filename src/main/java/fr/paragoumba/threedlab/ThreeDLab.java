@@ -10,8 +10,8 @@ public class ThreeDLab {
 
     public static void main(String[] args) throws IOException {
 
-        Labyrinth labyrinth = new Labyrinth(10, 10);
-        Level level = new Level(labyrinth);
+        Labyrinth labyrinth = new Labyrinth(21, 21);
+        Level level = new Level("Let's start easy", labyrinth);
         ArrayList<Level> levels = new ArrayList<>();
 
         levels.add(level);
