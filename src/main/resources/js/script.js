@@ -1,3 +1,11 @@
+let debug = true;
+const debugElts = {
+    fps: document.getElementById("fps"),
+    pos: document.getElementById("pos"),
+    rot: document.getElementById("rot"),
+    info: document.getElementById("info")
+}
+
 const loader = new THREE.TextureLoader();
 const movement = {
     forward: false,
@@ -58,21 +66,55 @@ function keyEvent(event, pressed){
 
     switch (event.keyCode){
 
-        case 90: // z
+        case 90: // z: Move Forward
             movement.forward = pressed;
             break;
 
-        case 81: // q
+        case 81: // q: Move left
             movement.left = pressed;
             break;
 
-        case 83: // s
+        case 83: // s: Move backward
             movement.backward = pressed;
             break;
 
-        case 68: // d
+        case 68: // d: Move right
             movement.right = pressed;
             break;
+
+        case 67: // c: Go up
+            movement.up = pressed;
+            break;
+
+        case 88: // x: Go down
+            movement.down = pressed;
+            break;
+
+        case 73: // i: Display debug
+            if (pressed){
+
+                debug = !debug;
+
+                for (let [, value] of Object.entries(debugElts)){
+
+                    if (!debug){
+
+                        value.textContent = "";
+                        value.innerHeight = "";
+                        value.style.display = "hidden";
+
+                    } else {
+
+                        value.style.display = "";
+
+                    }
+                }
+            }
+
+            break;
+
+        default:
+            if (debug && pressed) console.log("Key '" + String.fromCharCode(event.which) + "' (" + event.keyCode + ")");
 
     }
 }
@@ -122,10 +164,22 @@ function animate(){
         lastFPS = fps;
         fps = 0;
 
+        if (debug){
+
+            debugElts.info.textContent = "Geo: " + renderer.info.memory.geometries + " Tex: " + renderer.info.memory.textures
+                + " Tr: " + renderer.info.render.triangles;
+            debugElts.fps.textContent = "FPS: " + lastFPS + " Frame: " + renderer.info.render.frame;
+
+        }
     }
 
-    //textElt.textContent = "x:" + (180 / Math.PI * camera.rotation.x).toFixed(2) + " y:" + (180 / Math.PI * camera.rotation.y).toFixed(2) + " z:" + (180 / Math.PI * camera.rotation.z).toFixed(2) + " FPS:" + lastFPS;
-    textElt.textContent = "x:" + (camera.position.x).toFixed(2) + " y:" + (camera.position.y).toFixed(2) + " z:" + (camera.position.z).toFixed(2) + " FPS:" + lastFPS;
+    if (debug){
+
+        debugElts.pos.textContent = "x:" + (camera.position.x).toFixed(2) + " y:" + (camera.position.y).toFixed(2) + " z:" + (camera.position.z).toFixed(2);
+        debugElts.rot.textContent = "rx:" + (180 / Math.PI * camera.rotation.x).toFixed(2) + " ry:" + (180 / Math.PI * camera.rotation.y).toFixed(2) + " rz:" + (180 / Math.PI * camera.rotation.z).toFixed(2);
+
+    }
+
     renderer.render(scene, camera);
     ++fps;
 
@@ -141,7 +195,10 @@ function importData(){
         .then(data => data.json())
         .then(data => importLab(data.levels))
         .then(animate)
-        .catch(() => textElt.textContent = "Could not load data.");
+        .catch(error => {
+            debugElts.info.textContent = "Could not load data.";
+            console.error(error);
+        });
 
 }
 
