@@ -122,6 +122,8 @@ function keyEvent(event, pressed){
 document.addEventListener( 'keydown', (ev) => {keyEvent(ev, true)}, false);
 document.addEventListener( 'keyup', (ev) => {keyEvent(ev, false)}, false);
 
+const velocity = 0.1;
+
 function animate(){
 
     requestAnimationFrame(animate);
@@ -132,25 +134,37 @@ function animate(){
 
         if (movement.forward){
 
-            controls.moveForward(1);
+            controls.moveForward(velocity);
 
         }
 
         if (movement.left){
 
-            controls.moveRight(-1);
+            controls.moveRight(-velocity);
 
         }
 
         if (movement.backward){
 
-            controls.moveForward(-1);
+            controls.moveForward(-velocity);
 
         }
 
         if (movement.right){
 
-            controls.moveRight(1);
+            controls.moveRight(velocity);
+
+        }
+
+        if (movement.up){
+
+            camera.position.y += velocity;
+
+        }
+
+        if (movement.down){
+
+            camera.position.y -= velocity;
 
         }
 
