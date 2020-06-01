@@ -14,6 +14,18 @@ const movement = {
     right: false,
 }
 
+const textures = {
+    brick: loader.load('imgs/brick.png'),
+    stone: loader.load('imgs/stone.png'),
+    icon: loader.load('imgs/3dlab-icon.png')
+}
+
+textures.brick.anistropy = 0;
+textures.stone.anistropy = 0;
+textures.icon.anistropy = 0;
+textures.stone.minFilter = textures.brick.minFilter = textures.icon.minFilter = THREE.NearestFilter;
+textures.brick.magFilter = textures.stone.magFilter = textures.icon.magFilter = THREE.NearestFilter;
+
 const materials = {
     white: new THREE.MeshPhongMaterial({color: 0xFFFFFF}),
     black: new THREE.MeshPhongMaterial({color: 0x000000}),
@@ -23,9 +35,9 @@ const materials = {
     yellow: new THREE.MeshPhongMaterial({color: 0xFFFF00}),
     cyan: new THREE.MeshPhongMaterial({color: 0x00FFFF}),
     magenta: new THREE.MeshPhongMaterial({color: 0xFF00FF}),
-    brick: new THREE.MeshPhongMaterial({map: loader.load('imgs/brick.png')}),
-    stone: new THREE.MeshPhongMaterial({map: loader.load('imgs/stone.png')}),
-    icon: new THREE.MeshPhongMaterial({map: loader.load('imgs/3dlab-icon.png')})
+    brick: new THREE.MeshPhongMaterial({map: textures.brick, shininess: 0}),
+    stone: new THREE.MeshPhongMaterial({map: textures.stone, shininess: 0}),
+    icon: new THREE.MeshPhongMaterial({map: textures.icon})
 }
 const textElt = document.getElementById("text");
 
@@ -207,7 +219,7 @@ function importData(){
 
     fetch("data.json")
         .then(data => data.json())
-        .then(data => importLab(data.levels))
+        .then(data => importLab(data))
         .then(animate)
         .catch(error => {
             debugElts.info.textContent = "Could not load data.";
