@@ -9,6 +9,15 @@ body {
     color: white;
 }
 
+p {
+    margin-top: 0;
+}
+
+.debug {
+    position: fixed;
+    margin: 1em;
+}
+
 canvas {
     display: block;
 }
