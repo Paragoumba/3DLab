@@ -207,7 +207,7 @@ function importLab(data){
     levels = [];
 
     let i = 0;
-    for (const level of data){
+    for (const level of data.levels){
 
         const lab = level.lab;
         const newLevel = levels[i] = {
@@ -224,18 +224,19 @@ function importLab(data){
 
         }
 
+        const boxGeometry = new THREE.BoxGeometry();
+
         for (const block of lab.walls){
 
-            const geometry = new THREE.BoxGeometry();
-            let material = materials[block.material];
+            let material = materials[block.mat];
 
             if (material === undefined){
 
-                material = new THREE.MeshPhongMaterial();
+                material = materials.brick;
 
             }
 
-            const cube = new THREE.Mesh(geometry, material);
+            const cube = new THREE.Mesh(boxGeometry, material);
 
             cube.position.x = block.x;
             cube.position.z = block.y;
@@ -244,6 +245,9 @@ function importLab(data){
 
         }
 
+        const planeGeometry = new THREE.PlaneGeometry();
+        const material = materials.stone;
+
         for (let x = 0; x < newLevel.lab.width; ++x){
             for (let y = 0; y < newLevel.lab.height; ++y){
 
@@ -251,9 +255,9 @@ function importLab(data){
 
                 if (object === undefined){
 
-                    const geometry = new THREE.PlaneGeometry();
-                    const material = materials.white;
-                    object = new THREE.Mesh(geometry, material);
+                    object = new THREE.Mesh(planeGeometry, material);
+
+                    object.geometry.side = THREE.DoubleSide;
 
                     object.position.x = x;
                     object.position.y = -0.5;
@@ -272,13 +276,35 @@ function importLab(data){
 
     }
 
-    const halfWidth = levels[0].lab.width / 2;
-    const halfHeight = levels[0].lab.height / 2;
+    const blockGeo = new THREE.BoxGeometry();
+    const block = new THREE.Mesh(blockGeo, materials.white);
 
-    camera.position.set(halfWidth, 20, halfHeight);
+    scene.add(block);
+    block.position.x = levels[0].lab.width * 2;
+    block.position.y = 30;
+    block.position.z = -levels[0].lab.height;
 
-    camera.rotation.x = -Math.PI / 2;
+    camera.position.set(3, 0, 1);
+    camera.rotation.y = Math.PI / 180 * -90;
 
-    light.position.set(halfWidth, 15, halfHeight);
+    light.position.set(levels[0].lab.width * 2, 30, -levels[0].lab.height);
+
+}
+
+for (let materialsKey in materials){
+
+    materials[materialsKey].dispose();
+
+}
+
+for (let texturesKey in textures){
+
+    textures[texturesKey].dispose();
+
+}
+
+for (let object of scene.children){
+
+    //object.dispose();
 
 }
