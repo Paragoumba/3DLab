@@ -53,7 +53,7 @@ window.addEventListener('resize', function(){
 scene.background = new THREE.CubeTextureLoader().load(['imgs/cloudtop_ft.png', 'imgs/cloudtop_bk.png', 'imgs/cloudtop_up.png', 'imgs/cloudtop_dn.png', 'imgs/cloudtop_rt.png', 'imgs/cloudtop_lf.png']);
 scene.add(new THREE.AmbientLight(0xAAAAAA));
 
-var light = new THREE.PointLight();
+const light = new THREE.PointLight();
 light.castShadow = true;
 light.shadow.camera.zoom = 4; // tighter shadow map
 scene.add(light);
