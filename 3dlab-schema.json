@@ -22,7 +22,7 @@
                     "y": {
                       "type": "number"
                     },
-                    "material": {
+                    "mat": {
                       "type": "string"
                     }
                   },
