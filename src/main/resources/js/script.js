@@ -11,7 +11,7 @@ const movement = {
     forward: false,
     left: false,
     backward: false,
-    right: false,
+    right: false
 }
 
 const textures = {
@@ -39,7 +39,6 @@ const materials = {
     stone: new THREE.MeshPhongMaterial({map: textures.stone, shininess: 0}),
     icon: new THREE.MeshPhongMaterial({map: textures.icon})
 }
-const textElt = document.getElementById("text");
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -49,12 +48,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const controls = new THREE.PointerLockControls(camera, renderer.domElement);
-
-renderer.domElement.addEventListener('click', function(){
-
-    controls.lock();
-
-}, false);
 
 window.addEventListener('resize', function(){
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -179,9 +172,6 @@ function animate(){
             camera.position.y -= velocity;
 
         }
-
-        //light.position.set(camera.position.x, camera.position.y, camera.position.z);
-
     }
 
     if (now - last > 1000){
@@ -220,12 +210,12 @@ function importData(){
     fetch("data.json")
         .then(data => data.json())
         .then(data => importLab(data))
+        .then(() => renderer.domElement.addEventListener('click', () => controls.lock(), false))
         .then(animate)
         .catch(error => {
             debugElts.info.textContent = "Could not load data.";
             console.error(error);
         });
-
 }
 
 function importLab(data){
