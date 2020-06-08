@@ -1,8 +1,9 @@
 package fr.paragoumba.threedlab;
 
+import fr.paragoumba.threedlab.materials.TextureMaterial;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
@@ -11,7 +12,7 @@ public class ImageButton extends Button {
 
     public ImageButton(String text, String imagePath){
 
-        super(text);
+        super(text, new TextureMaterial(imagePath));
 
         try {
 

@@ -1,29 +1,31 @@
 package fr.paragoumba.threedlab;
 
+import fr.paragoumba.threedlab.materials.Material;
+
 public class Labyrinth {
 
     public Labyrinth(int width, int height){
 
         this.width = width;
         this.height = height;
-        this.grid = new boolean[width][height];
+        this.grid = new Material[width][height];
 
     }
 
-    private final boolean[][] grid;
+    private final Material[][] grid;
     private final int width;
     private final int height;
 
-    public void toggleSquare(int x, int y){
+    public void toggleSquare(int x, int y, Material material){
 
         if (x >= 0 && x < width && y >= 0 && y < height){
 
-            grid[x][y] = !grid[x][y];
+            grid[x][y] = material;
 
         }
     }
 
-    public boolean[][] getGrid(){
+    public Material[][] getGrid(){
 
         return grid;
 

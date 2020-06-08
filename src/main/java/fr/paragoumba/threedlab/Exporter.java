@@ -1,5 +1,6 @@
 package fr.paragoumba.threedlab;
 
+import fr.paragoumba.threedlab.materials.Material;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -62,17 +63,18 @@ public class Exporter {
             labyrinthObject.put("height", labyrinth.getHeight());
             labyrinthObject.put("walls", wallsArray);
 
-            boolean[][] grid = labyrinth.getGrid();
+            Material[][] grid = labyrinth.getGrid();
 
             for (int i = 0; i < grid.length; ++i){
                 for (int j = 0; j < grid[i].length; ++j){
 
-                    if (grid[i][j]){
+                    if (grid[i][j] != null){
 
                         JSONObject square = new JSONObject();
 
                         square.put("x", i);
                         square.put("y", j);
+                        square.put("mat", grid[i][j].toString());
 
                         wallsArray.put(square);
 

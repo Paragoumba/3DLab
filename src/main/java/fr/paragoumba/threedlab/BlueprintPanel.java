@@ -1,5 +1,7 @@
 package fr.paragoumba.threedlab;
 
+import fr.paragoumba.threedlab.materials.Material;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +23,7 @@ public class BlueprintPanel extends JPanel {
     public static final Color brightShadow = new Color(255, 255, 255, 20);
     public static final Color darkShadow = new Color(0, 0, 0, 50);
     public static Font font;
+    private static Material material;
 
     public BlueprintPanel(List<Level> levels){
 
@@ -102,7 +105,7 @@ public class BlueprintPanel extends JPanel {
 
                         Point mouseSquarePosition = getSquareMousePosition(mousePosition);
 
-                        currentLevel.getLabyrinth().toggleSquare(mouseSquarePosition.x, mouseSquarePosition.y);
+                        currentLevel.getLabyrinth().toggleSquare(mouseSquarePosition.x, mouseSquarePosition.y, material);
 
                         repaint();
 
@@ -184,6 +187,12 @@ public class BlueprintPanel extends JPanel {
 
     }
 
+    public static void setCurrentMaterial(Material material){
+
+        BlueprintPanel.material = material;
+
+    }
+
     @Override
     protected void paintComponent(Graphics g){
 
@@ -247,12 +256,12 @@ public class BlueprintPanel extends JPanel {
 
         }
 
-        boolean[][] grid = labyrinth.getGrid();
+        Material[][] grid = labyrinth.getGrid();
 
         for (int j = 0; j < labyrinth.getHeight(); ++j){
             for (int i = 0; i < labyrinth.getWidth(); ++i){
 
-                if (grid[i][j]){
+                if (grid[i][j] != null){
 
                     if (mousePosition == null || i != mousePosition.x || j != mousePosition.y){
 

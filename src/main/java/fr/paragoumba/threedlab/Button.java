@@ -1,13 +1,15 @@
 package fr.paragoumba.threedlab;
 
+import fr.paragoumba.threedlab.materials.Material;
+
 import javax.swing.*;
 import java.awt.*;
 
 import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
 
-public class Button extends JButton {
+public abstract class Button extends JButton {
 
-    public Button(String text){
+    public Button(String text, Material material){
 
         super(text);
 
@@ -20,6 +22,8 @@ public class Button extends JButton {
         setMinimumSize(size);
         setMaximumSize(size);
         setPreferredSize(size);
+
+        addActionListener(actionEvent -> BlueprintPanel.setCurrentMaterial(material));
 
     }
 

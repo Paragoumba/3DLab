@@ -1,5 +1,7 @@
 package fr.paragoumba.threedlab;
 
+import fr.paragoumba.threedlab.materials.ColorMaterial;
+
 import java.awt.*;
 
 import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
@@ -8,7 +10,7 @@ public class ColorButton extends Button {
 
     public ColorButton(String text, Color color){
 
-        super(text);
+        super(text, new ColorMaterial(color));
 
         this.color = color;
 
