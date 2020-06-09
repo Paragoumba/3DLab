@@ -18,6 +18,8 @@ public class BlueprintPanel extends JPanel {
     private static final int[] SPACINGS = new int[]{10, 15, 20, 30, 50, 75, 100};
     private static int LINE_SPACING = 4;
     private static BufferedImage arrow;
+    private static BufferedImage startFlag;
+    private static BufferedImage endFlag;
 
     public static final Color bgColor = new Color(0, 109, 223);
     public static final Color brightShadow = new Color(255, 255, 255, 20);
@@ -32,6 +34,8 @@ public class BlueprintPanel extends JPanel {
         try {
 
             arrow = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/imgs/arrow.png"));
+            startFlag = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/imgs/start-flag.png"));
+            endFlag = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/imgs/finish-flag.png"));
             font = Font.createFont(Font.TRUETYPE_FONT, BlueprintPanel.class.getResourceAsStream("/fonts/prstartk.ttf"));
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
 
@@ -86,7 +90,7 @@ public class BlueprintPanel extends JPanel {
         addMouseListener(new MouseAdapter(){
 
             @Override
-            public void mousePressed(MouseEvent e){
+            public void mouseReleased(MouseEvent e){
 
                 super.mouseClicked(e);
 
@@ -114,6 +118,27 @@ public class BlueprintPanel extends JPanel {
                         dragStart = mousePosition;
 
                     }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e){
+
+                super.mousePressed(e);
+
+                if (e.getButton() == MouseEvent.BUTTON1){
+
+                    Point mousePosition = e.getPoint();
+                    Labyrinth labyrinth = currentLevel.getLabyrinth();
+
+                    int labWidth = labyrinth.getWidth() * SPACINGS[LINE_SPACING];
+                    int labHeight = labyrinth.getHeight() * SPACINGS[LINE_SPACING];
+
+                    boolean inLab = mousePosition.x >= offset.x && mousePosition.x < offset.x + labWidth &&
+                            mousePosition.y >= offset.y && mousePosition.y < offset.y + labHeight;
+
+                    dragStart = inLab ? null : mousePosition;
+
                 }
             }
         });
@@ -207,11 +232,6 @@ public class BlueprintPanel extends JPanel {
         g.setColor(bgColor);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        g.setFont(new Font(font.getName(), Font.PLAIN, 25));
-
-        g.setColor(Color.WHITE);
-        g.drawString("Level " + currentLevel.getLevel() + " - " + currentLevel.getName(), 2 * PIXEL_SIZE, 4 * PIXEL_SIZE);
-
         g.setColor(brightShadow);
 
         int width = getWidth();
@@ -280,6 +300,28 @@ public class BlueprintPanel extends JPanel {
             }
         }
 
+        {
+
+            Point startPoint = labyrinth.getStart();
+
+            int x1 = offset.x + startPoint.x * SPACINGS[LINE_SPACING];
+            int y1 = offset.y + startPoint.y * SPACINGS[LINE_SPACING];
+
+            g.drawImage(startFlag, x1, y1, SPACINGS[LINE_SPACING] + 1,  SPACINGS[LINE_SPACING] + 1, null);
+
+        }
+
+        {
+
+            Point endPoint = labyrinth.getEnd();
+
+            int x1 = offset.x + endPoint.x * SPACINGS[LINE_SPACING];
+            int y1 = offset.y + endPoint.y * SPACINGS[LINE_SPACING];
+
+            g.drawImage(endFlag, x1, y1, SPACINGS[LINE_SPACING] + 1, SPACINGS[LINE_SPACING] + 1, null);
+
+        }
+
         if (arrow != null && offset.x > width || offset.x < -labWidth || offset.y > height || offset.y < -labHeight){
 
             int labCenterX = offset.x + labWidth / 2;
@@ -310,5 +352,11 @@ public class BlueprintPanel extends JPanel {
             g2d.drawImage(arrow, at, this);
 
         }
+
+        g.setFont(new Font(font.getName(), Font.PLAIN, 25));
+
+        g.setColor(Color.WHITE);
+        g.drawString("Level " + currentLevel.getLevel() + " - " + currentLevel.getName(), 2 * PIXEL_SIZE, 4 * PIXEL_SIZE);
+
     }
 }
