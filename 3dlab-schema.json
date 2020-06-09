@@ -36,9 +36,33 @@
               },
               "height": {
                 "type": "integer"
+              },
+              "start": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "integer"
+                  },
+                  "y": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["x", "y"]
+              },
+              "end": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "integer"
+                  },
+                  "y": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["x", "y"]
               }
             },
-            "required": ["walls", "width", "height"]
+            "required": ["walls", "width", "height", "start", "end"]
           }
         },
         "required": [
