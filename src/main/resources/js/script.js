@@ -67,6 +67,32 @@ let lastFPS = 0;
 let fps = 0;
 let last = new Date().getTime();
 
+const raycaster = new THREE.Raycaster();
+
+raycaster.near = -0.5;
+raycaster.far = 0.5;
+
+const objects = [];
+
+function addObject(object){
+
+    objects.push(object);
+    scene.add(object);
+
+}
+
+function clearObjects(){
+
+    for (const object of objects){
+
+        scene.remove(object);
+
+    }
+
+    objects.length = 0;
+
+}
+
 function keyEvent(event, pressed){
 
     switch (event.keyCode){
@@ -129,13 +155,66 @@ document.addEventListener( 'keyup', (ev) => {keyEvent(ev, false)}, false);
 
 const velocity = 0.1;
 
+let playerGeometry = new THREE.BoxGeometry();
+let player = new THREE.Mesh(playerGeometry);
+camera.add(player);
+
 function animate(){
 
     requestAnimationFrame(animate);
 
-    let now = new Date().getTime();
+    const now = new Date().getTime();
+    const direction = new THREE.Vector2();
 
-    if (controls.isLocked === true){
+    if (controls.isLocked){
+
+        if (movement.forward){
+
+            direction.y += velocity;
+
+        }
+
+        if (movement.left){
+
+            direction.x -= velocity;
+
+        }
+
+        if (movement.backward){
+
+            direction.y -= velocity;
+
+        }
+
+        if (movement.right){
+
+            direction.x += velocity;
+
+        }
+    }
+
+    const lookVec = new THREE.Vector3();
+    camera.getWorldDirection(lookVec);
+    lookVec.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.atan2(-direction.x, direction.y));
+    raycaster.set(camera.position, lookVec);
+
+    let intersects = raycaster.intersectObjects(objects);
+    let collision = false;
+
+    if (intersects.length > 0){
+
+        for (const intersect of intersects){
+
+            if (Math.pow(intersect.distance, 2) < 2){
+
+                collision = true;
+                break;
+
+            }
+        }
+    }
+
+    if (!collision && controls.isLocked){
 
         if (movement.forward){
 
@@ -283,7 +362,7 @@ function importLab(data){
 
                 }
 
-                scene.add(object);
+                addObject(object);
 
             }
         }
