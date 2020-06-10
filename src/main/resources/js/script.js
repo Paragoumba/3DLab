@@ -113,14 +113,6 @@ function keyEvent(event, pressed){
             movement.right = pressed;
             break;
 
-        case 67: // c: Go up
-            movement.up = pressed;
-            break;
-
-        case 88: // x: Go down
-            movement.down = pressed;
-            break;
-
         case 73: // i: Display debug
             if (pressed){
 
@@ -233,18 +225,6 @@ function animate(){
         if (movement.right){
 
             controls.moveRight(velocity);
-
-        }
-
-        if (movement.up){
-
-            camera.position.y += velocity;
-
-        }
-
-        if (movement.down){
-
-            camera.position.y -= velocity;
 
         }
     }
