@@ -147,6 +147,9 @@ document.addEventListener( 'keyup', (ev) => {keyEvent(ev, false)}, false);
 
 const velocity = 0.1;
 
+/* This is the rendering loop. It is executed after the levels have been imported. It handles all the rendering,
+** the inputs, the collisions and the debug displaying.
+**/
 function animate(){
 
     requestAnimationFrame(animate);
@@ -256,6 +259,9 @@ function animate(){
 
 }
 
+/* Here we import the labyrinths from the data.json file. If no error is encountered the animation loop is executed.
+** Else an error message is displayed. All the imported levels are stored in the levels variable.
+**/
 let levels;
 
 importData();
