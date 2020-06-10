@@ -205,7 +205,7 @@ function animate(){
 
         for (const intersect of intersects){
 
-            if (Math.pow(intersect.distance, 2) < 2){
+            if (intersect.distance < 0.5){
 
                 collision = true;
                 break;
