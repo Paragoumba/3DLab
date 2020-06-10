@@ -263,6 +263,7 @@ function animate(){
 ** Else an error message is displayed. All the imported levels are stored in the levels variable.
 **/
 let levels;
+let currentLevel;
 
 importData();
 
@@ -272,6 +273,7 @@ function importData(){
         .then(data => data.json())
         .then(data => importLab(data))
         .then(() => renderer.domElement.addEventListener('click', () => controls.lock(), false))
+        .then(() => setCurrentLevel(0))
         .then(animate)
         .catch(error => {
             debugElts.info.textContent = "Could not load data.";
@@ -281,6 +283,7 @@ function importData(){
 
 function importLab(data){
 
+    clearObjects();
     levels = [];
 
     let i = 0;
@@ -291,6 +294,8 @@ function importLab(data){
             lab: {
                 width: lab.width,
                 height: lab.height,
+                start: lab.start,
+                end: lab.end,
                 rows: []
             }
         };
@@ -343,45 +348,40 @@ function importLab(data){
                     newLevel.lab.rows[x][y] = object;
 
                 }
-
-                addObject(object);
-
             }
         }
 
         ++i;
 
     }
-
-    const blockGeo = new THREE.BoxGeometry();
-    const block = new THREE.Mesh(blockGeo, materials.white);
-
-    scene.add(block);
-    block.position.x = levels[0].lab.width * 2;
-    block.position.y = 30;
-    block.position.z = -levels[0].lab.height;
-
-    camera.position.set(3, 0, 1);
-    camera.rotation.y = Math.PI / 180 * -90;
-
-    light.position.set(levels[0].lab.width * 2, 30, -levels[0].lab.height);
-
 }
 
-for (let materialsKey in materials){
+function setCurrentLevel(i){
 
-    materials[materialsKey].dispose();
+    currentLevel = i;
+    clearObjects();
 
-}
+    const level = levels[i];
 
-for (let texturesKey in textures){
+    for (let x = 0; x < level.lab.width; ++x){
+        for (let y = 0; y < level.lab.height; ++y){
 
-    textures[texturesKey].dispose();
+            let object = level.lab.rows[x][y];
 
-}
+            addObject(object);
 
-for (let object of scene.children){
+        }
+    }
 
-    //object.dispose();
+    light.position.set(level.lab.width * 2, 30, -level.lab.height);
+
+    const endGeo = new THREE.BoxGeometry();
+    const end = new THREE.Mesh(endGeo, materials.icon);
+    end.position.x = level.lab.end.x;
+    end.position.z = level.lab.end.y;
+    addObject(end);
+
+    camera.position.set(level.lab.start.x, 0, level.lab.start.y);
+    camera.rotation.set(0, Math.PI, 0);
 
 }
