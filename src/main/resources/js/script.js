@@ -1,4 +1,4 @@
-let debug = true;
+let debug = false;
 const debugElts = {
     fps: document.getElementById("fps"),
     pos: document.getElementById("pos"),
