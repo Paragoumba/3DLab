@@ -155,10 +155,6 @@ document.addEventListener( 'keyup', (ev) => {keyEvent(ev, false)}, false);
 
 const velocity = 0.1;
 
-let playerGeometry = new THREE.BoxGeometry();
-let player = new THREE.Mesh(playerGeometry);
-camera.add(player);
-
 function animate(){
 
     requestAnimationFrame(animate);
