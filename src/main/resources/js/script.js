@@ -113,7 +113,43 @@ function keyEvent(event, pressed){
             movement.right = pressed;
             break;
 
-        case 73: // i: Display debug
+        case 67: // c: Go up
+
+            if (debug){
+
+                movement.up = pressed;
+
+            }
+            break;
+
+        case 88: // x: Go down
+
+            if (debug){
+
+                movement.down = pressed;
+
+            }
+            break;
+
+        case 107: // +: Go to next level
+
+            if (debug && currentLevel < levels.length - 1){
+
+                setCurrentLevel(currentLevel + 1);
+
+            }
+            break;
+
+        case 109: // -: Go to previous level
+
+            if (debug && currentLevel > 0){
+
+                setCurrentLevel(currentLevel - 1);
+
+            }
+            break;
+
+        case 73: // i: Toggle debug and displays info
             if (pressed){
 
                 debug = !debug;
@@ -137,8 +173,11 @@ function keyEvent(event, pressed){
             break;
 
         default:
-            if (debug && pressed) console.log("Key '" + String.fromCharCode(event.which) + "' (" + event.keyCode + ")");
+            if (debug && pressed){
 
+                console.log("Key '" + String.fromCharCode(event.which) + "' (" + event.keyCode + ")");
+
+            }
     }
 }
 
@@ -228,6 +267,18 @@ function animate(){
         if (movement.right){
 
             controls.moveRight(velocity);
+
+        }
+
+        if (movement.up){
+
+            camera.position.y += velocity;
+
+        }
+
+        if (movement.down){
+
+            camera.position.y -= velocity;
 
         }
     }
