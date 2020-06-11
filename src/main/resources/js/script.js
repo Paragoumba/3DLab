@@ -27,14 +27,14 @@ textures.stone.minFilter = textures.brick.minFilter = textures.icon.minFilter = 
 textures.brick.magFilter = textures.stone.magFilter = textures.icon.magFilter = THREE.NearestFilter;
 
 const materials = {
-    white: new THREE.MeshPhongMaterial({color: 0xFFFFFF}),
-    black: new THREE.MeshPhongMaterial({color: 0x000000}),
-    red: new THREE.MeshPhongMaterial({color: 0xFF0000}),
-    green: new THREE.MeshPhongMaterial({color: 0x00FF00}),
-    blue: new THREE.MeshPhongMaterial({color: 0x0000FF}),
-    yellow: new THREE.MeshPhongMaterial({color: 0xFFFF00}),
-    cyan: new THREE.MeshPhongMaterial({color: 0x00FFFF}),
-    magenta: new THREE.MeshPhongMaterial({color: 0xFF00FF}),
+    "#FFFFFF": new THREE.MeshPhongMaterial({color: 0xFFFFFF}),
+    "#000000": new THREE.MeshPhongMaterial({color: 0x000000}),
+    "#FF0000": new THREE.MeshPhongMaterial({color: 0xFF0000}),
+    "#00FF00": new THREE.MeshPhongMaterial({color: 0x00FF00}),
+    "#0000FF": new THREE.MeshPhongMaterial({color: 0x0000FF}),
+    "#FFFF00": new THREE.MeshPhongMaterial({color: 0xFFFF00}),
+    "#00FFFF": new THREE.MeshPhongMaterial({color: 0x00FFFF}),
+    "#FF00FF": new THREE.MeshPhongMaterial({color: 0xFF00FF}),
     brick: new THREE.MeshPhongMaterial({map: textures.brick, shininess: 0}),
     stone: new THREE.MeshPhongMaterial({map: textures.stone, shininess: 0}),
     icon: new THREE.MeshPhongMaterial({map: textures.icon})
