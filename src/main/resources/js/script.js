@@ -324,7 +324,7 @@ function importData(){
         .then(data => data.json())
         .then(data => importLab(data))
         .then(() => renderer.domElement.addEventListener('click', () => controls.lock(), false))
-        .then(() => setCurrentLevel(0))
+        .then(() => changeLevel(0))
         .then(animate)
         .catch(error => {
             debugElts.info.textContent = "Could not load data.";
@@ -432,7 +432,13 @@ function setCurrentLevel(i){
     end.position.z = level.lab.end.y;
     addObject(end);
 
-    camera.position.set(level.lab.start.x, 0, level.lab.start.y);
+}
+
+function changeLevel(i){
+
+    setCurrentLevel(i);
+
+    camera.position.set(levels[i].lab.start.x, 0, levels[i].lab.start.y);
     camera.rotation.set(0, Math.PI, 0);
 
 }
