@@ -133,7 +133,7 @@ function keyEvent(event, pressed){
 
         case 107: // +: Go to next level
 
-            if (debug && currentLevel < levels.length - 1){
+            if (debug){
 
                 setCurrentLevel(currentLevel + 1);
 
@@ -142,7 +142,7 @@ function keyEvent(event, pressed){
 
         case 109: // -: Go to previous level
 
-            if (debug && currentLevel > 0){
+            if (debug){
 
                 setCurrentLevel(currentLevel - 1);
 
@@ -408,6 +408,12 @@ function importLab(data){
 }
 
 function setCurrentLevel(i){
+
+    if (i < 0 || i >= levels.length){
+
+        return false;
+
+    }
 
     currentLevel = i;
     clearObjects();
