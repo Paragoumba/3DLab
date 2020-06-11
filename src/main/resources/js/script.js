@@ -6,6 +6,8 @@ const debugElts = {
     info: document.getElementById("info")
 }
 
+const message = document.getElementById("message");
+
 const loader = new THREE.TextureLoader();
 const movement = {
     forward: false,
@@ -283,6 +285,16 @@ function animate(){
         }
     }
 
+    const level = levels[currentLevel];
+
+    if (!debug &&
+        camera.position.x >= level.lab.end.x - 0.5 && camera.position.x < level.lab.end.x + 0.5 &&
+        camera.position.z >= level.lab.end.y - 0.5 && camera.position.z < level.lab.end.y + 0.5){
+
+        nextLevel();
+
+    }
+
     if (now - last > 1000){
 
         last = now;
@@ -324,7 +336,7 @@ function importData(){
         .then(data => data.json())
         .then(data => importLab(data))
         .then(() => renderer.domElement.addEventListener('click', () => controls.lock(), false))
-        .then(() => changeLevel(0))
+        .then(() => nextLevel())
         .then(animate)
         .catch(error => {
             debugElts.info.textContent = "Could not load data.";
@@ -432,19 +444,40 @@ function setCurrentLevel(i){
 
     light.position.set(level.lab.width * 2, 30, -level.lab.height);
 
-    const endGeo = new THREE.BoxGeometry();
+    const endGeo = new THREE.PlaneGeometry();
     const end = new THREE.Mesh(endGeo, materials.icon);
     end.position.x = level.lab.end.x;
+    end.position.y = -0.5;
     end.position.z = level.lab.end.y;
+    end.rotation.x = -Math.PI / 2;
+
     addObject(end);
+
+    return true;
 
 }
 
-function changeLevel(i){
+function nextLevel(){
 
-    setCurrentLevel(i);
+    const success = setCurrentLevel(currentLevel !== undefined ? currentLevel + 1 : 0);
 
-    camera.position.set(levels[i].lab.start.x, 0, levels[i].lab.start.y);
+    if (!success){
+
+        message.textContent = "You win!";
+        message.style.display = "inherit";
+
+        return success;
+
+    }
+
+    message.textContent = "Level " + currentLevel + "!";
+    message.style.display = "inherit";
+
+    setTimeout(() => message.style.display = "none", 3000);
+
+    camera.position.set(levels[currentLevel].lab.start.x, 0, levels[currentLevel].lab.start.y);
     camera.rotation.set(0, Math.PI, 0);
+
+    return success;
 
 }
