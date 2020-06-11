@@ -18,4 +18,12 @@ public class ColorMaterial extends Material {
         return String.format("#%06x", color.getRGB() & 0x00FFFFFF).toUpperCase();
 
     }
+
+    @Override
+    public void drawMaterial(Graphics g){
+
+        g.setColor(color);
+        g.fillRect(0, 0, g.getClipBounds().width + 1, g.getClipBounds().height + 1);
+
+    }
 }

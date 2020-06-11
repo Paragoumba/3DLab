@@ -1,5 +1,6 @@
 package fr.paragoumba.threedlab.materials;
 
+import java.awt.*;
 import java.util.LinkedHashSet;
 
 public abstract class Material {
@@ -11,4 +12,7 @@ public abstract class Material {
         materials.add(this);
 
     }
+
+    public abstract void drawMaterial(Graphics g);
+
 }

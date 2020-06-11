@@ -1,5 +1,6 @@
 package fr.paragoumba.threedlab;
 
+import fr.paragoumba.threedlab.materials.ColorMaterial;
 import fr.paragoumba.threedlab.materials.Material;
 
 import javax.imageio.ImageIO;
@@ -25,7 +26,7 @@ public class BlueprintPanel extends JPanel {
     public static final Color brightShadow = new Color(255, 255, 255, 20);
     public static final Color darkShadow = new Color(0, 0, 0, 50);
     public static Font font;
-    private static Material material;
+    private static Material material = new ColorMaterial(Color.WHITE);
 
     public BlueprintPanel(List<Level> levels){
 
@@ -281,11 +282,13 @@ public class BlueprintPanel extends JPanel {
         for (int j = 0; j < labyrinth.getHeight(); ++j){
             for (int i = 0; i < labyrinth.getWidth(); ++i){
 
+                Graphics squareG = g.create(offset.x + i * SPACINGS[LINE_SPACING], offset.y + j * SPACINGS[LINE_SPACING], SPACINGS[LINE_SPACING] + 1, SPACINGS[LINE_SPACING] + 1);
+
                 if (grid[i][j] != null){
 
                     if (mousePosition == null || i != mousePosition.x || j != mousePosition.y){
 
-                        fillSquare(g, offset.x + i * SPACINGS[LINE_SPACING], offset.y + j * SPACINGS[LINE_SPACING]);
+                        grid[i][j].drawMaterial(squareG);
 
                     }
 
