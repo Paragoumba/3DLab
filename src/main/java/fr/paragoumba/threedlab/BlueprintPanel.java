@@ -3,7 +3,6 @@ package fr.paragoumba.threedlab;
 import fr.paragoumba.threedlab.materials.ColorMaterial;
 import fr.paragoumba.threedlab.materials.Material;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -32,11 +31,12 @@ public class BlueprintPanel extends JPanel {
 
         super(new BorderLayout());
 
+        arrow = ResourceManager.getImage("/imgs/arrow.png");
+        startFlag = ResourceManager.getImage("/imgs/start-flag.png");
+        endFlag = ResourceManager.getImage("/imgs/finish-flag.png");
+
         try {
 
-            arrow = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/imgs/arrow.png"));
-            startFlag = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/imgs/start-flag.png"));
-            endFlag = ImageIO.read(BlueprintPanel.class.getResourceAsStream("/imgs/finish-flag.png"));
             font = Font.createFont(Font.TRUETYPE_FONT, BlueprintPanel.class.getResourceAsStream("/fonts/prstartk.ttf"));
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
 
@@ -52,6 +52,81 @@ public class BlueprintPanel extends JPanel {
         menuPanel.add(new Menu());
 
         add(menuPanel, BorderLayout.AFTER_LINE_ENDS);
+
+        Panel levelsPanel = new Panel(){
+
+            @Override
+            protected void paintComponent(Graphics g){
+
+                g.setColor(Color.RED);
+                g.fillRect(0, 0, getWidth(), getHeight());
+
+            }
+        };
+
+        levelsPanel.add(new JLabel("Mes couilles"));
+
+        add(levelsPanel, BorderLayout.BEFORE_LINE_BEGINS);
+
+        ButtonGroup blockTypeGroup = new ButtonGroup();
+
+        wallButton = new RadioButton();
+        startButton = new RadioButton();
+        endButton = new RadioButton();
+
+        Image brickImage = ResourceManager.getImage("/imgs/brick.png");
+
+        if (brickImage != null){
+
+            wallButton.setIcon(new ImageIcon(brickImage.getScaledInstance(
+                    brickImage.getWidth(null) * 2,
+                    brickImage.getHeight(null) * 2,
+                    Image.SCALE_REPLICATE)));
+
+        }
+
+        Image startFlagImage = ResourceManager.getImage("/imgs/start-flag.png");
+
+        if (startFlagImage != null){
+
+            startButton.setIcon(new ImageIcon(startFlagImage.getScaledInstance(
+                    startFlagImage.getWidth(null) * 2,
+                    startFlagImage.getHeight(null) * 2,
+                    Image.SCALE_REPLICATE)));
+
+        }
+
+        Image endFlagImage = ResourceManager.getImage("/imgs/finish-flag.png");
+
+        if (endFlagImage != null){
+
+            endButton.setIcon(new ImageIcon(endFlagImage.getScaledInstance(
+                    endFlagImage.getWidth(null) * 2,
+                    endFlagImage.getHeight(null) * 2,
+                    Image.SCALE_REPLICATE)));
+
+        }
+
+        wallButton.setSelected(true);
+
+        blockTypeGroup.add(wallButton);
+        blockTypeGroup.add(startButton);
+        blockTypeGroup.add(endButton);
+
+        ClearPanel buttonsPanel = new ClearPanel();
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
+
+        Dimension margin = new Dimension(2, BlueprintPanel.PIXEL_SIZE * 3);
+
+        buttonsPanel.add(Box.createVerticalGlue());
+        buttonsPanel.add(wallButton);
+        buttonsPanel.add(Box.createRigidArea(margin));
+        buttonsPanel.add(startButton);
+        buttonsPanel.add(Box.createRigidArea(margin));
+        buttonsPanel.add(endButton);
+        buttonsPanel.add(Box.createRigidArea(margin));
+
+        add(buttonsPanel);
 
         this.levels = levels;
 
@@ -110,7 +185,19 @@ public class BlueprintPanel extends JPanel {
 
                         Point mouseSquarePosition = getSquareMousePosition(mousePosition);
 
-                        currentLevel.getLabyrinth().toggleSquare(mouseSquarePosition.x, mouseSquarePosition.y, material);
+                        if (wallButton.isSelected()){
+
+                            currentLevel.getLabyrinth().toggleSquare(mouseSquarePosition.x, mouseSquarePosition.y, material);
+
+                        } else if (startButton.isSelected()){
+
+                            currentLevel.getLabyrinth().setStart(mouseSquarePosition);
+
+                        } else if (endButton.isSelected()){
+
+                            currentLevel.getLabyrinth().setEnd(mouseSquarePosition);
+
+                        }
 
                         repaint();
 
@@ -166,6 +253,10 @@ public class BlueprintPanel extends JPanel {
             }
         });
     }
+
+    private final RadioButton wallButton;
+    private final RadioButton startButton;
+    private final RadioButton endButton;
 
     private final List<Level> levels;
     private Level currentLevel;
