@@ -54,20 +54,29 @@ public class BlueprintPanel extends JPanel {
 
         add(menuPanel, BorderLayout.AFTER_LINE_ENDS);
 
-        Panel levelsPanel = new Panel(){
+        ClearPanel buttonsPanel = new ClearPanel();
 
-            @Override
-            protected void paintComponent(Graphics g){
+        Button addButton = new Button('+');
+        Button delButton = new Button('-');
+        Button prevButton = new Button('<');
+        Button nextButton = new Button('>');
 
-                g.setColor(Color.RED);
-                g.fillRect(0, 0, getWidth(), getHeight());
+        addButton.addActionListener(e -> levels.add(new Level("", new Labyrinth(21, 21))));
+        delButton.addActionListener(e -> levels.remove(levels.size() - 1));
+        prevButton.addActionListener(e -> setCurrentLevel(currentLevel.getLevel() - 1));
+        nextButton.addActionListener(e -> setCurrentLevel(currentLevel.getLevel() + 1));
 
-            }
-        };
+        Dimension margin = new Dimension(BlueprintPanel.PIXEL_SIZE * 3, BlueprintPanel.PIXEL_SIZE * 3);
 
-        levelsPanel.add(new JLabel("Mes couilles"));
-
-        add(levelsPanel, BorderLayout.BEFORE_LINE_BEGINS);
+        buttonsPanel.add(Box.createRigidArea(new Dimension(margin.width, margin.height * 3)));
+        buttonsPanel.add(addButton);
+        buttonsPanel.add(Box.createRigidArea(margin));
+        buttonsPanel.add(delButton);
+        buttonsPanel.add(Box.createRigidArea(margin));
+        buttonsPanel.add(prevButton);
+        buttonsPanel.add(Box.createRigidArea(margin));
+        buttonsPanel.add(nextButton);
+        buttonsPanel.add(Box.createVerticalGlue());
 
         ButtonGroup blockTypeGroup = new ButtonGroup();
 
@@ -114,12 +123,8 @@ public class BlueprintPanel extends JPanel {
         blockTypeGroup.add(startButton);
         blockTypeGroup.add(endButton);
 
-        ClearPanel buttonsPanel = new ClearPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
 
-        Dimension margin = new Dimension(2, BlueprintPanel.PIXEL_SIZE * 3);
-
-        buttonsPanel.add(Box.createVerticalGlue());
         buttonsPanel.add(wallButton);
         buttonsPanel.add(Box.createRigidArea(margin));
         buttonsPanel.add(startButton);
@@ -127,7 +132,7 @@ public class BlueprintPanel extends JPanel {
         buttonsPanel.add(endButton);
         buttonsPanel.add(Box.createRigidArea(margin));
 
-        add(buttonsPanel);
+        add(buttonsPanel, BorderLayout.BEFORE_LINE_BEGINS);
 
         this.levels = levels;
 
@@ -285,7 +290,7 @@ public class BlueprintPanel extends JPanel {
 
     public void setCurrentLevel(int levelIndex){
 
-        if (levelIndex >= levels.size()){
+        if (levelIndex >= levels.size() || levelIndex < 0){
 
             return;
 
@@ -302,6 +307,8 @@ public class BlueprintPanel extends JPanel {
         int height = getHeight();
 
         offset = new Point((width - labWidth) / 2, (height - labHeight) / 2);
+
+        repaint();
 
     }
 
