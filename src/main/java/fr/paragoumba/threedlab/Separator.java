@@ -10,11 +10,11 @@ public class Separator extends JComponent {
     @Override
     public Dimension getPreferredSize(){
 
-        Dimension minSize = super.getMinimumSize();
+        Dimension preferredSize = super.getMinimumSize();
 
-        minSize.height = PIXEL_SIZE * 3;
+        preferredSize.height = PIXEL_SIZE * 3;
 
-        return minSize;
+        return preferredSize;
 
     }
 
