@@ -2,9 +2,8 @@ package fr.paragoumba.threedlab;
 
 import fr.paragoumba.threedlab.materials.TextureMaterial;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
 
@@ -14,18 +13,15 @@ public class ImageButton extends Button {
 
         super(text, new TextureMaterial(imagePath));
 
-        try {
+        BufferedImage bufferedImage = ResourceManager.getImage(imagePath);
 
-            image = ImageIO.read(ImageButton.class.getResourceAsStream(imagePath))
-                    .getScaledInstance(80, 80, Image.SCALE_DEFAULT);
+        if (bufferedImage != null){
 
-            this.imageHeight = this.imageWidth = 80;
-
-        } catch (IOException e){
-
-            e.printStackTrace();
+            image = bufferedImage.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 
         }
+
+        this.imageHeight = this.imageWidth = 80;
 
         Dimension size = new Dimension(imageWidth + 4 * PIXEL_SIZE, imageHeight + 4 * PIXEL_SIZE);
 
@@ -36,8 +32,8 @@ public class ImageButton extends Button {
     }
 
     private Image image;
-    private int imageWidth;
-    private int imageHeight;
+    private final int imageWidth;
+    private final int imageHeight;
 
     @Override
     protected void paintComponent(Graphics g){
