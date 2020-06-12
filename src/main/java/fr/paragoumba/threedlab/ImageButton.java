@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
 
-public class ImageButton extends Button {
+public class ImageButton extends MaterialButton {
 
     public ImageButton(String text, String imagePath){
 

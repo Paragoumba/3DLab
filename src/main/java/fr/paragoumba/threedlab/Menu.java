@@ -9,7 +9,7 @@ public class Menu extends Panel {
 
     public Menu(){
 
-        Button save = new ImageButton("Save", "/imgs/save.png");
+        MaterialButton save = new ImageButton("Save", "/imgs/save.png");
 
         save.addActionListener(actionEvent -> {
 

@@ -6,7 +6,7 @@ import java.awt.*;
 
 import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
 
-public class ColorButton extends Button {
+public class ColorButton extends MaterialButton {
 
     public ColorButton(String text, Color color){
 
