@@ -22,8 +22,10 @@ public class ColorMaterial extends Material {
     @Override
     public void drawMaterial(Graphics g){
 
+        Rectangle bounds = g.getClipBounds();
+
         g.setColor(color);
-        g.fillRect(0, 0, g.getClipBounds().width + 1, g.getClipBounds().height + 1);
+        g.fillRect(bounds.x, bounds.y, bounds.width + 1, bounds.height + 1);
 
     }
 }

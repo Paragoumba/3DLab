@@ -39,7 +39,9 @@ public class TextureMaterial extends Material {
     @Override
     public void drawMaterial(Graphics g){
 
-        g.drawImage(image, 0, 0, g.getClipBounds().width + 1,  g.getClipBounds().height + 1, null);
+        Rectangle bounds = g.getClipBounds();
+
+        g.drawImage(image, bounds.x, bounds.y, bounds.width + 1, bounds.height + 1, null);
 
     }
 }
