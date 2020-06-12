@@ -26,7 +26,7 @@ public class Labyrinth {
 
         if (x >= 0 && x < width && y >= 0 && y < height){
 
-            grid[x][y] = material;
+            grid[x][y] = grid[x][y] == null ? material : null;
 
         }
     }
