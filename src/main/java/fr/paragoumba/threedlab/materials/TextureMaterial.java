@@ -1,6 +1,6 @@
 package fr.paragoumba.threedlab.materials;
 
-import fr.paragoumba.threedlab.BlueprintPanel;
+import fr.paragoumba.threedlab.components.BlueprintPanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

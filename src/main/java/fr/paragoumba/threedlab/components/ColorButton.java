@@ -1,10 +1,10 @@
-package fr.paragoumba.threedlab;
+package fr.paragoumba.threedlab.components;
 
 import fr.paragoumba.threedlab.materials.ColorMaterial;
 
 import java.awt.*;
 
-import static fr.paragoumba.threedlab.BlueprintPanel.PIXEL_SIZE;
+import static fr.paragoumba.threedlab.components.BlueprintPanel.PIXEL_SIZE;
 
 public class ColorButton extends MaterialButton {
 

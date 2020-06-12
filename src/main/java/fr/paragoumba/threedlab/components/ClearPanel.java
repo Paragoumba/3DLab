@@ -1,4 +1,4 @@
-package fr.paragoumba.threedlab;
+package fr.paragoumba.threedlab.components;
 
 import javax.swing.*;
 import java.awt.*;

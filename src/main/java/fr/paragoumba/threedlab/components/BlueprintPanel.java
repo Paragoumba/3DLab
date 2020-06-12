@@ -1,5 +1,8 @@
-package fr.paragoumba.threedlab;
+package fr.paragoumba.threedlab.components;
 
+import fr.paragoumba.threedlab.Labyrinth;
+import fr.paragoumba.threedlab.Level;
+import fr.paragoumba.threedlab.ResourceManager;
 import fr.paragoumba.threedlab.materials.ColorMaterial;
 import fr.paragoumba.threedlab.materials.Material;
 
