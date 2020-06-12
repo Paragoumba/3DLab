@@ -42,7 +42,10 @@ public class Exporter {
         }
 
         Utils.copyResource("css/style.css");
+        Utils.copyResource("fonts/prstartk.ttf");
         Utils.copyResource("js/three.min.js");
+        Utils.copyResource("js/BasisTextureLoader.min.js");
+        Utils.copyResource("js/PointerLockControls.min.js");
         Utils.copyResource("js/script.js");
         Utils.copyResource("index.html");
 
@@ -118,7 +121,6 @@ public class Exporter {
             String exportedJson = root.toString(2);
 
             out.println(exportedJson);
-            System.out.println(exportedJson);
 
         } catch (IOException e){
 
