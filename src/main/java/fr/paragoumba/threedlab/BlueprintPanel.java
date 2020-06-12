@@ -22,6 +22,7 @@ public class BlueprintPanel extends JPanel {
     private static BufferedImage endFlag;
 
     public static final Color bgColor = new Color(0, 109, 223);
+    public static final Color bgColorDark = new Color(0, 72, 151);
     public static final Color brightShadow = new Color(255, 255, 255, 20);
     public static final Color darkShadow = new Color(0, 0, 0, 50);
     public static Font font;

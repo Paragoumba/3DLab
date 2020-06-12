@@ -51,7 +51,7 @@ public class RadioButton extends JRadioButton {
 
         if (isSelected()){
 
-            g.setColor(new Color(0, 72, 151));
+            g.setColor(BlueprintPanel.bgColorDark);
             g.fillRect(PIXEL_SIZE, 0, width - 2 * PIXEL_SIZE, height);
             g.fillRect(0, PIXEL_SIZE, PIXEL_SIZE, height - 2 * PIXEL_SIZE);
             g.fillRect(width - PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE, height - 2 * PIXEL_SIZE);
