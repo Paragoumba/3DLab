@@ -64,8 +64,19 @@ public class BlueprintPanel extends JPanel {
         Button prevButton = new Button('<');
         Button nextButton = new Button('>');
 
-        addButton.addActionListener(e -> levels.add(new Level("", new Labyrinth(21, 21))));
-        delButton.addActionListener(e -> levels.remove(levels.size() - 1));
+        addButton.addActionListener(e -> {
+            levels.add(new Level("", new Labyrinth(21, 21)));
+            setCurrentLevel(currentLevel.getLevel() + 1);
+        });
+        delButton.addActionListener(e -> {
+            int lastItemIndex = levels.size() - 1;
+
+            if (lastItemIndex > 0){
+
+                levels.remove(lastItemIndex);
+                setCurrentLevel(currentLevel.getLevel() - 1);
+            }
+        });
         prevButton.addActionListener(e -> setCurrentLevel(currentLevel.getLevel() - 1));
         nextButton.addActionListener(e -> setCurrentLevel(currentLevel.getLevel() + 1));
 
