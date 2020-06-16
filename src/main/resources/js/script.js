@@ -226,8 +226,11 @@ function animate(){
     }
 
     const lookVec = new THREE.Vector3();
-    camera.getWorldDirection(lookVec);
+
+    controls.getDirection(lookVec);
     lookVec.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.atan2(-direction.x, direction.y));
+    lookVec.y = 0;
+
     raycaster.set(camera.position, lookVec);
 
     let intersects = raycaster.intersectObjects(objects);
