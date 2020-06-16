@@ -464,17 +464,17 @@ function nextLevel(){
 
     const success = setCurrentLevel(currentLevel !== undefined ? currentLevel + 1 : 0);
 
+    message.style.display = "inherit";
+
     if (!success){
 
         message.textContent = "You win!";
-        message.style.display = "inherit";
 
         return success;
 
     }
 
     message.textContent = "Level " + currentLevel + "!";
-    message.style.display = "inherit";
 
     setTimeout(() => message.style.display = "none", 3000);
 
