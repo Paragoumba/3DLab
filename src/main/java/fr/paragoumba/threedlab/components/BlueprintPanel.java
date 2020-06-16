@@ -65,20 +65,26 @@ public class BlueprintPanel extends JPanel {
         Button nextButton = new Button('>');
 
         addButton.addActionListener(e -> {
-            levels.add(new Level("", new Labyrinth(21, 21)));
-            setCurrentLevel(currentLevel.getLevel() + 1);
+
+            int levelsNumber = levels.size();
+
+            levels.add(levelsNumber, new Level("", new Labyrinth(21, 21)));
+            setCurrentLevel(levelsNumber);
+
         });
         delButton.addActionListener(e -> {
-            int lastItemIndex = levels.size() - 1;
 
-            if (lastItemIndex > 0){
+            if (levels.size() > 1){
 
-                levels.remove(lastItemIndex);
-                setCurrentLevel(currentLevel.getLevel() - 1);
+                int previousIndex = levels.indexOf(currentLevel) - 1;
+
+                levels.remove(currentLevel);
+                setCurrentLevel(previousIndex);
+
             }
         });
-        prevButton.addActionListener(e -> setCurrentLevel(currentLevel.getLevel() - 1));
-        nextButton.addActionListener(e -> setCurrentLevel(currentLevel.getLevel() + 1));
+        prevButton.addActionListener(e -> setCurrentLevel(levels.indexOf(currentLevel) - 1));
+        nextButton.addActionListener(e -> setCurrentLevel(levels.indexOf(currentLevel) + 1));
 
         Dimension margin = new Dimension(BlueprintPanel.PIXEL_SIZE * 3, BlueprintPanel.PIXEL_SIZE * 3);
 
@@ -304,11 +310,7 @@ public class BlueprintPanel extends JPanel {
 
     public void setCurrentLevel(int levelIndex){
 
-        if (levelIndex >= levels.size() || levelIndex < 0){
-
-            return;
-
-        }
+        levelIndex = Math.min(levels.size() - 1, Math.max(levelIndex, 0));
 
         this.currentLevel = levels.get(levelIndex);
 
@@ -472,7 +474,7 @@ public class BlueprintPanel extends JPanel {
         g.setFont(new Font(font.getName(), Font.PLAIN, 25));
 
         g.setColor(Color.WHITE);
-        g.drawString("Level " + currentLevel.getLevel() + " - " + currentLevel.getName(), 2 * PIXEL_SIZE, 4 * PIXEL_SIZE);
+        g.drawString("Level " + levels.indexOf(currentLevel) + " - " + currentLevel.getName(), 2 * PIXEL_SIZE, 4 * PIXEL_SIZE);
 
     }
 }
