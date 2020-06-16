@@ -43,7 +43,7 @@ const materials = {
 }
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.001, 1000);
 
 const renderer = new THREE.WebGLRenderer({antialias: false});
 renderer.setSize(window.innerWidth, window.innerHeight);
