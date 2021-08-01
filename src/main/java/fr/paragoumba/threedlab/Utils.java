@@ -1,7 +1,6 @@
 package fr.paragoumba.threedlab;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class Utils {
 
@@ -9,21 +8,23 @@ public class Utils {
 
     public static void copyResource(String resource){
 
-        try(InputStream is = Exporter.class.getResourceAsStream("/" + resource);
-            Scanner in = new Scanner(is);
-            FileOutputStream fos = new FileOutputStream("export/" + resource);
-            PrintWriter out = new PrintWriter(fos)){
+        InputStream is = Exporter.class.getResourceAsStream("/" + resource);
 
-            while (in.hasNext()){
+        if (is != null){
 
-                out.println(in.nextLine());
+            try(BufferedInputStream in = new BufferedInputStream(is);
+                FileOutputStream fos = new FileOutputStream("export/" + resource);
+                BufferedOutputStream out = new BufferedOutputStream(fos)) {
+
+                out.write(in.readAllBytes());
+
+                is.close();
+
+            } catch (IOException e){
+
+                e.printStackTrace();
 
             }
-
-        } catch (IOException e){
-
-            e.printStackTrace();
-
         }
     }
 }
