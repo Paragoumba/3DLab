@@ -13,9 +13,9 @@ p {
     margin-top: 0;
 }
 
-.debug {
+#debug {
     position: fixed;
-    margin: 1em;
+    margin: 0.5em;
 }
 
 #message {
@@ -23,8 +23,14 @@ p {
     margin: auto;
     top: 50%;
     left: 50%;
+    font-size: 5em;
     transform: translate(-50%, -50%);
+}
+
+#debug, #message {
     display: none;
+    padding: 0.5em;
+    background-color: #00000050;
 }
 
 canvas {

@@ -1,4 +1,5 @@
 let debug = false;
+const debugElt = document.getElementById("debug");
 const debugElts = {
     fps: document.getElementById("fps"),
     pos: document.getElementById("pos"),
@@ -156,19 +157,14 @@ function keyEvent(event, pressed){
 
                 debug = !debug;
 
-                for (let [, value] of Object.entries(debugElts)){
+                if (debug){
 
-                    if (!debug){
+                    debugElt.style.display = "inherit";
 
-                        value.textContent = "";
-                        value.innerHeight = "";
-                        value.style.display = "hidden";
+                } else {
 
-                    } else {
+                    debugElt.style.display = "none";
 
-                        value.style.display = "";
-
-                    }
                 }
             }
 
