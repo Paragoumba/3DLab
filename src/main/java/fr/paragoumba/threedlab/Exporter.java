@@ -15,9 +15,10 @@ public class Exporter {
 
     private Exporter(){}
 
-    public static void export(List<Level> levels){
+    public static final File exportDir = new File("export");
+    public static final File dataFile = new File(exportDir, "data.json");
 
-        File exportDir = new File("export");
+    public static void export(List<Level> levels){
 
         if (!exportDir.exists()){
 
@@ -143,7 +144,7 @@ public class Exporter {
 
         }
 
-        try(FileOutputStream fos = new FileOutputStream(new File(exportDir, "data.json"));
+        try(FileOutputStream fos = new FileOutputStream(dataFile);
             PrintWriter out = new PrintWriter(fos)){
 
             String exportedJson = root.toString(2);

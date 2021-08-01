@@ -7,16 +7,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ThreeDLab {
 
     public static void main(String[] args) throws IOException {
 
-        Labyrinth labyrinth = new Labyrinth(21, 21);
-        Level level = new Level("Let's start easy", labyrinth);
-        ArrayList<Level> levels = new ArrayList<>();
+        List<Level> levels;
 
-        levels.add(level);
+        if (Exporter.dataFile.exists()){
+
+            levels = Importer.importData(Exporter.dataFile);
+
+        } else {
+
+            Labyrinth labyrinth = new Labyrinth(21, 21);
+            Level level = new Level("Let's start easy", labyrinth);
+            levels = new ArrayList<>();
+
+            levels.add(level);
+
+        }
 
         JFrame window = new JFrame("3DLab - Labyrinth Generator");
         BlueprintPanel mainPanel = new BlueprintPanel(levels);
