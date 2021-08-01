@@ -12,9 +12,47 @@ public class Button extends JButton {
 
         this.c = c;
 
+        setBorder(null);
+
     }
 
     protected final char c;
+
+    @Override
+    public Dimension getMaximumSize(){
+
+        Dimension preferredSize = super.getMinimumSize();
+
+        preferredSize.width = PIXEL_SIZE * 6;
+        preferredSize.height = PIXEL_SIZE * 6;
+
+        return preferredSize;
+
+    }
+
+    @Override
+    public Dimension getPreferredSize(){
+
+        Dimension preferredSize = super.getMinimumSize();
+
+        preferredSize.width = PIXEL_SIZE * 6;
+        preferredSize.height = PIXEL_SIZE * 6;
+
+        return preferredSize;
+
+    }
+
+    @Override
+    public Dimension getMinimumSize(){
+
+        Dimension preferredSize = super.getMinimumSize();
+
+        preferredSize.width = PIXEL_SIZE * 6;
+        preferredSize.height = PIXEL_SIZE * 6;
+
+        return preferredSize;
+
+    }
 
     @Override
     protected void paintComponent(Graphics g){
@@ -46,7 +84,7 @@ public class Button extends JButton {
         int stringHeight = g.getFontMetrics().getHeight();
 
         g.setColor(Color.WHITE);
-        g.drawString(String.valueOf(c), (width - stringWidth) / 2, (height + stringHeight) / 2);
+        g.drawString(s, (width - stringWidth) / 2, (height + stringHeight) / 2);
 
     }
 }
