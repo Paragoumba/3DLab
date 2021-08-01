@@ -41,12 +41,40 @@ public class Exporter {
 
         }
 
+        File fontsDir = new File(exportDir, "fonts");
+
+        if (!fontsDir.exists()){
+
+            fontsDir.mkdir();
+
+        }
+
+        File imgsDir = new File(exportDir, "imgs");
+
+        if (!imgsDir.exists()){
+
+            imgsDir.mkdir();
+
+        }
+
         Utils.copyResource("css/style.css");
         Utils.copyResource("fonts/prstartk.ttf");
+
+        Utils.copyResource("imgs/3dlab-icon.png");
+        Utils.copyResource("imgs/brick.png");
+        Utils.copyResource("imgs/stone.png");
+        Utils.copyResource("imgs/cloudtop_ft.png");
+        Utils.copyResource("imgs/cloudtop_bk.png");
+        Utils.copyResource("imgs/cloudtop_up.png");
+        Utils.copyResource("imgs/cloudtop_dn.png");
+        Utils.copyResource("imgs/cloudtop_rt.png");
+        Utils.copyResource("imgs/cloudtop_lf.png");
+
         Utils.copyResource("js/three.min.js");
         Utils.copyResource("js/BasisTextureLoader.min.js");
         Utils.copyResource("js/PointerLockControls.min.js");
         Utils.copyResource("js/script.js");
+
         Utils.copyResource("index.html");
 
         JSONObject root = new JSONObject();
