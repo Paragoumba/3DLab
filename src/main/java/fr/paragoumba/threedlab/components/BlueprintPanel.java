@@ -29,7 +29,7 @@ public class BlueprintPanel extends JPanel {
     public static final Color brightShadow = new Color(255, 255, 255, 20);
     public static final Color darkShadow = new Color(0, 0, 0, 50);
     public static Font font;
-    private static Material material = new ColorMaterial(Color.WHITE);
+    public static Material material = new ColorMaterial(Color.WHITE);
 
     public BlueprintPanel(List<Level> levels){
 
