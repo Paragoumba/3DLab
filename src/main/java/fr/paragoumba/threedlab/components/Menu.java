@@ -11,7 +11,7 @@ public class Menu extends Panel {
 
     public Menu(){
 
-        MaterialButton save = new ImageButton("Save", "/imgs/save.png");
+        MaterialButton save = new ImageButton("Save", "/imgs/save.png", false);
 
         save.addActionListener(actionEvent -> {
 
@@ -34,19 +34,19 @@ public class Menu extends Panel {
         add(Box.createVerticalGlue());
         add(new Separator());
         add(Box.createVerticalGlue());
-        add(new ColorButton("White", Color.WHITE));
+        add(new ColorButton("White", Color.WHITE, true));
         add(Box.createVerticalGlue());
-        add(new ImageButton("Brick", "/imgs/brick.png"));
+        add(new ImageButton("Brick", "/imgs/brick.png", true));
         add(Box.createVerticalGlue());
-        add(new ImageButton("Stone", "/imgs/stone.png"));
+        add(new ImageButton("Stone", "/imgs/stone.png", true));
         add(Box.createVerticalGlue());
-        add(new ColorButton("Black", Color.BLACK));
+        add(new ColorButton("Black", Color.BLACK, true));
         add(Box.createVerticalGlue());
-        add(new ColorButton("Green", Color.GREEN));
+        add(new ColorButton("Green", Color.GREEN, true));
         add(Box.createVerticalGlue());
-        add(new ColorButton("Blue", Color.BLUE));
+        add(new ColorButton("Blue", Color.BLUE, true));
         add(Box.createVerticalGlue());
-        add(new ColorButton("Red", Color.RED));
+        add(new ColorButton("Red", Color.RED, true));
         add(Box.createVerticalGlue());
 
     }

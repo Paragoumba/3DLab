@@ -10,9 +10,9 @@ import static fr.paragoumba.threedlab.components.BlueprintPanel.PIXEL_SIZE;
 
 public class ImageButton extends MaterialButton {
 
-    public ImageButton(String text, String imagePath){
+    public ImageButton(String text, String imagePath, boolean canSetMaterial){
 
-        super(text, new TextureMaterial(imagePath));
+        super(text, new TextureMaterial(imagePath), canSetMaterial);
 
         BufferedImage bufferedImage = ResourceManager.getImage(imagePath);
 

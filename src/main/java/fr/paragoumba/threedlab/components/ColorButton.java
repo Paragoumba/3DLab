@@ -8,9 +8,9 @@ import static fr.paragoumba.threedlab.components.BlueprintPanel.PIXEL_SIZE;
 
 public class ColorButton extends MaterialButton {
 
-    public ColorButton(String text, Color color){
+    public ColorButton(String text, Color color, boolean canSetMaterial){
 
-        super(text, new ColorMaterial(color));
+        super(text, new ColorMaterial(color), canSetMaterial);
 
         this.color = color;
 

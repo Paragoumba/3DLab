@@ -10,7 +10,7 @@ import static fr.paragoumba.threedlab.components.BlueprintPanel.PIXEL_SIZE;
 
 public abstract class MaterialButton extends JButton {
 
-    public MaterialButton(String text, Material material){
+    public MaterialButton(String text, Material material, boolean canSetMaterial){
 
         super(text);
 
@@ -24,8 +24,11 @@ public abstract class MaterialButton extends JButton {
         setMaximumSize(size);
         setPreferredSize(size);
 
-        addActionListener(actionEvent -> BlueprintPanel.setCurrentMaterial(material));
+        if (canSetMaterial){
 
+            addActionListener(actionEvent -> BlueprintPanel.setCurrentMaterial(material));
+
+        }
     }
 
     @Override
@@ -41,8 +44,6 @@ public abstract class MaterialButton extends JButton {
 
     @Override
     public Point getToolTipLocation(MouseEvent event){
-
-
 
         return new Point(0, getHeight() / 2);
 
