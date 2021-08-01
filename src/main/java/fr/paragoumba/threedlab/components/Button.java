@@ -8,11 +8,21 @@ import static fr.paragoumba.threedlab.components.BlueprintPanel.bgColorDark;
 
 public class Button extends JButton {
 
+    public Button(char c){
+
+        this.c = c;
+
+    }
+
+    protected final char c;
+
     @Override
     protected void paintComponent(Graphics g){
 
         int width = getWidth();
         int height = getHeight();
+
+        boolean isPressed = getModel().isPressed();
 
         g.setColor(isPressed ? bgColorDark : BlueprintPanel.bgColor);
         g.fillRect(PIXEL_SIZE, 0, width - 2 * PIXEL_SIZE, height);
