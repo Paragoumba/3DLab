@@ -8,11 +8,17 @@ public class Labyrinth {
 
     public Labyrinth(int width, int height){
 
+        this(width, height, new Material[width][height]);
+
+    }
+
+    public Labyrinth(int width, int height, Material[][] grid){
+
         this.width = width;
         this.height = height;
         this.start = new Point(0, 0);
         this.end = new Point(width - 1, height - 1);
-        this.grid = new Material[width][height];
+        this.grid = grid;
 
     }
 
