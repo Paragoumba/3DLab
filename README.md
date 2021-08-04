@@ -1,5 +1,5 @@
 # 3DLab
-
+Java application to create 2D labyrinths. You can then export your labyrinths and solve them in 3D in your web browser 
 
 # Licensing
 This project is distributed under the MIT License. See [LICENSE](LICENSE) for further details.
